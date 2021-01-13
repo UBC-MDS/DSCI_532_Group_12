@@ -42,7 +42,7 @@ Rui Wang|
 ### Rotation
 Week 1|Week 2| Week 3| Week 4
 ------|------|-------|-------
-Mai Le|||
+Mai Le|Sang Yoon Lee|Rui Wang|Mai Le
 
 ## Review and merge task
 Each member will be paired with a teammate as their reviewer with the responsibilities as below:
