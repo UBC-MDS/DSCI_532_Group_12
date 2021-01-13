@@ -11,7 +11,7 @@
 Member | Availability
 -------|---------
 Mai Le| 9:00-18:00, 21:00-22:00 GMT+7 (18:00-03:00, 6:00-7:00 PST)
-Sang Yoong Lee| 
+Sang Yoong Lee| 9:00-18:00, 21:00-22:00 GMT+9 (20:00-05:00, 8:00-9:00 PST)
 Rui Wang| 
 
 ## Task collaboration
