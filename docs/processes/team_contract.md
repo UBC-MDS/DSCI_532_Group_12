@@ -54,9 +54,9 @@ We will be change reviewer assignment everyweek so that every member can learn f
 
 Member | Week1 - Reviewer|Week2 - Reviewer|Week3 - Reviewer|Week4 - Reviewer
 -------|-----------------|----------------|----------------|-----------------|
-Mai Le| |Sang Yoon Lee| Rui Wang|Sang Yoon Lee
-Sang Yoon Lee| Rui Wang| Mai Le |Rui Wang|
-Rui Wang|Mai Le |Sang Yoon Lee|Mai Le |
+Mai Le| Sang Yoon Lee| Rui Wang|Sang Yoon Lee|Rui Wang
+Sang Yoon Lee| Rui Wang| Mai Le |Rui Wang| Mai Le
+Rui Wang|Mai Le |Sang Yoon Lee|Mai Le |Sang Yoon Lee
 
 
 ## Definition of Done
