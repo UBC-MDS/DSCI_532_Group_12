@@ -1,10 +1,8 @@
-# Team Work Contract (Draft version, to be discussed)
+# Team Work Contract
 
 ## Group Objectives
-* Base goal:
   * Achieve good grade for DSCI-532 course: complete project objectives
-* Stretch goal:
-  * Demonstrate data science skillset for future employers
+  * Focus on visualization techniques
 
 ## Communication
 * Slack group
@@ -56,9 +54,9 @@ We will be change reviewer assignment everyweek so that every member can learn f
 
 Member | Week1 - Reviewer|Week2 - Reviewer|Week3 - Reviewer|Week4 - Reviewer
 -------|-----------------|----------------|----------------|-----------------|
-Mai Le| |||
-Sang Yoon Lee| | ||
-Rui Wang| || |
+Mai Le| |Sang Yoon Lee| Rui Wang|Sang Yoon Lee
+Sang Yoon Lee| Rui Wang| Mai Le |Rui Wang|
+Rui Wang|Mai Le |Sang Yoon Lee|Mai Le |
 
 
 ## Definition of Done
