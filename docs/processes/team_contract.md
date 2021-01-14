@@ -64,5 +64,3 @@ Rui Wang|Mai Le |Sang Yoon Lee|Mai Le |Sang Yoon Lee
 - [ ] Accomplish the task requirements
 - [ ] Place file in the right location
 - [ ] Follow code quality guideline (Black for Python, Tidyverse for R): docstring, comments, script file structure
-- [ ] Write unit tests
-- [ ] Pass existing unit tests
