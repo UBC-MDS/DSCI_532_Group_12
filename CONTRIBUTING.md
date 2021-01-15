@@ -35,3 +35,4 @@ Please note that this project is released with a [code of conduct](https://githu
 
 ### Attribution
 These contributing guidelines were adapted from the [dplyr contributing guidelines](https://github.com/tidyverse/dplyr/blob/master/.github/CONTRIBUTING.md).
+
