@@ -2,6 +2,12 @@
 
 ## Motivation and purpose
 
+Our role: Data scientists in non-profit organization for health care
+
+Target audience: Unspecified individuals who are interested in COVID-19 
+
+From February 2020, COVID-19 has been spread all around world. COVID-19 affects not only industry but our daily life. During this pandemic, knowing the COVID-19 statistics such as number of confirmed, deaths, and recovered in certain region has become key thing for our daily life and planning our future. For these reasons, we propose building a COVID-19 visualization app that allows unspecified individuals to check the current COVID-19 statistics and visually explore it. This Covid-19 visualization app will show the number of confirmed, deaths, and recovered for each country. Furthermore, the user could check the historical trend of those numbers.
+
 ## Description of the data
 
 We will be visualizing the COVID-19 data from John Hopkins University's CSSE GIS and Data github repository. The data mainly consists of two primary portions, which are the daily cases summary and the time series data for confirmed cases, death, recovered cases. Our dashboard data summary such as confirmed cases by countries, death by countries and recovered by countries will come from the <a href=https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_daily_reports>CSSE COVID-19 Daily Reports</a>, and the trend of confirmed cases, recovered cases and death will be coming from <a href=https://github.com/CSSEGISandData/COVID-19/blob/master/csse_covid_19_data/csse_covid_19_time_series>CSSE COVID-19 Time Series</a>.
