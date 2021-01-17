@@ -26,4 +26,4 @@ The COVID-19 Data Portal materials here are licensed under the Creative Commons 
 
 ## References
 
--   COVID-19 Data Repository by the Center for Systems Science and Engineering (CSSE) at Johns Hopkins University, contributors: John Hopkins University. <https://github.com/CSSEGISandData/COVID-19>
+-   COVID-19 Data Repository by the Center for Systems Science and Engineering (CSSE) at Johns Hopkins University, contributors: Johns Hopkins University. <https://github.com/CSSEGISandData/COVID-19>
