@@ -6,7 +6,28 @@ app = dash.Dash(
     __name__, external_stylesheets=["https://codepen.io/chriddyp/pen/bWLwgP.css"]
 )
 app.layout = html.Div(
-    [html.H1("My Dash App"), dcc.Slider(min=0, max=5, marks={0: "0", 5: "Five"})]
+    [
+        html.H1("Covid Data Portal"),
+        html.Div(
+            html.Table(
+                [
+                    html.Tr(
+                        [
+                            html.Td(html.Div([html.H1("Global")])),
+                            html.Td(html.Div([html.H1("World Map")])),
+                            html.Td(
+                                html.Div(
+                                    [
+                                        html.H1("Country"),
+                                    ]
+                                ),
+                            ),
+                        ]
+                    )
+                ]
+            )
+        ),
+    ]
 )
 
 if __name__ == "__main__":
