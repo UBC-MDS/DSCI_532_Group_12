@@ -2,6 +2,7 @@ import dash
 import dash_html_components as html
 import dash_core_components as dcc
 from dash.dependencies import Input, Output
+import dash_bootstrap_components as dbc
 import locale
 
 locale.setlocale(locale.LC_ALL, "")
@@ -87,26 +88,19 @@ def right_panel():
 # endregion
 
 # region Setup app and layout/frontend
-app = dash.Dash(
-    __name__, external_stylesheets=["https://codepen.io/chriddyp/pen/bWLwgP.css"]
-)
-app.layout = html.Div(
+app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
+app.layout = dbc.Container(
     [
-        html.H1("Covid Data Portal"),
-        html.Div(
-            html.Table(
-                [
-                    html.Tr(
-                        [
-                            html.Td(left_panel()),
-                            html.Td(mid_panel()),
-                            html.Td(right_panel()),
-                        ]
-                    )
-                ]
-            )
+        dbc.Row([html.H1("Covid Data Portal")]),
+        dbc.Row(
+            [
+                dbc.Col([left_panel()], width=3),
+                dbc.Col([mid_panel()], width=6),
+                dbc.Col([right_panel()], width=3),
+            ]
         ),
-    ]
+    ],
+    fluid=True,
 )
 
 # endregion
