@@ -37,7 +37,7 @@ conda env create --file env.yaml
 conda activate covid_dash
 ```
 
-Go to the root folder of the repo and execute `python src/python/app.dash`
+Go to the root folder of the repo and execute `python src/python/app.py`
 
 ## License
 
