@@ -18,7 +18,26 @@ On the right side of the dashboard, the country level statistics can be seen in 
 
 ## Dashboard Design
 
-![](dashboad_sketch.png)
+![](docs/images/dashboad_sketch.png)
+
+## Usage
+
+Access dashboard at [TBD]
+
+### Build the dashboard locally
+
+**Step 1: Clone this repository**
+
+**Step 2:**
+
+Create and activate a conda environment using the env.yaml at the root of this project by running the following command at the root directory of the project. (Alternatively, you can manually install the dependencies listed in the env.yaml file)
+
+```bash
+conda env create --file env.yaml
+conda activate covid_dash
+```
+
+Go to the root folder of the repo and execute `python src/python/app.dash`
 
 ## License
 
