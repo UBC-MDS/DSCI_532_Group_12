@@ -32,6 +32,7 @@ class right_panel(panel):
                         dbc.Col(panel.create_card("Deaths", "", "lb_deaths")),
                     ]
                 ),
+                dbc.Row(dbc.Col(self.__create_button_groups())),
                 dbc.Row(
                     dbc.Col(
                         [
@@ -61,7 +62,7 @@ class right_panel(panel):
             ]
         )
 
-    def refresh(self, country):
+    def refresh(self, country, ntype="Total"):
         """update all components on the right panel when changing country selected
 
         Args:
@@ -70,17 +71,14 @@ class right_panel(panel):
         Returns:
             a tuple (confirmed, recovered, deaths, confirmed chart, death chart)
         """
+        self.selected_country = country
         result = self.data_reader.cumulative_filter(country)
         confirmed = f"{result.Confirmed:n}"
         recovered = f"{result.Recovered:n}"
         deaths = f"{result.Deaths:n}"
 
-        c_chart = self.__create_timeserie_chart(
-            country, number_type="total", case_type=1
-        )
-        d_chart = self.__create_timeserie_chart(
-            country, number_type="total", case_type=2
-        )
+        c_chart = self.__create_timeserie_chart(country, case_type=1, ntype=ntype)
+        d_chart = self.__create_timeserie_chart(country, case_type=2, ntype=ntype)
         return confirmed, recovered, deaths, c_chart, d_chart
 
     def __create_country_dropdown(self):
@@ -90,7 +88,18 @@ class right_panel(panel):
             value="Canada",
         )
 
-    def __create_timeserie_chart(self, country, number_type="total", case_type=1):
+    def __create_button_groups(self):
+        button_groups = dbc.ButtonGroup(
+            [
+                dbc.Button("Total", active=True, id="rp_btn_total"),
+                dbc.Button("New", id="rp_btn_new"),
+            ],
+            size="md",
+            className="mr-1",
+        )
+        return button_groups
+
+    def __create_timeserie_chart(self, country, case_type=1, ntype="Total"):
         data = self.data_reader.get_timeserie_data_by_country(country, case_type)
         if case_type == 1:
             chart_title = "Cases over time"
@@ -104,7 +113,8 @@ class right_panel(panel):
                 height=200,
             )
             .mark_line()
-            .encode(x=alt.X("date:T", title=""), y=alt.Y(number_type + ":Q", title=""))
+            .transform_filter(alt.FieldEqualPredicate(field="type", equal=ntype))
+            .encode(x=alt.X("date:T", title=""), y=alt.Y("count:Q", title=""))
             .configure_axis(grid=False)
             .configure_title(anchor="start")
         )

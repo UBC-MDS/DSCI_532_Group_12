@@ -136,15 +136,6 @@ class data_model:
 
         return self.daily_report.sum(numeric_only=True)
 
-    def timeseries_filter(self, country="all", case_type=case_type.confirmed):
-        """return timeserie data for a country with case type
-
-        Args:
-            country (string, optional): [description]. Defaults to all.
-            case_type ([type], optional): [description]. Defaults to case_type.confirmed.
-        """
-        pass
-
     def get_country_options(self):
         """create an array of country options to be used in dropdowns
 
@@ -186,11 +177,20 @@ class data_model:
         else:
             country_data = pd.DataFrame(df.iloc[:, 5:].sum())
         country_data = country_data.reset_index()
-        country_data.columns = ["date", "total"]
-        yesterday_data = np.zeros(country_data.total.shape[0])
-        yesterday_data[1:] = country_data.total.to_numpy()[0:-1]
+        country_data.columns = ["date", "Total"]
+        yesterday_data = np.zeros(country_data.Total.shape[0])
+        yesterday_data[1:] = country_data.Total.to_numpy()[0:-1]
         country_data["yesterday"] = yesterday_data
-        country_data["new"] = country_data.total - country_data["yesterday"]
+        country_data["New"] = country_data.Total - country_data["yesterday"]
+
+        country_data = country_data.loc[:, ["date", "Total", "New"]]
+        country_data = pd.melt(
+            country_data,
+            id_vars=["date"],
+            value_vars=["Total", "New"],
+            value_name="count",
+            var_name="type",
+        )
 
         return country_data
 

@@ -61,9 +61,23 @@ app.layout = dbc.Container(
     Output("chart_confirmed_trend", "srcDoc"),
     Output("chart_deaths_trend", "srcDoc"),
     Input("dd_country", "value"),
+    Input("rp_btn_total", "n_clicks"),
+    Input("rp_btn_new", "n_clicks"),
 )
-def update_right_panel(country):
-    return country_panel.refresh(country)
+def update_right_panel(country, total_click, new_click):
+    ctx = dash.callback_context
+    if not ctx.triggered:
+        ntype = "Total"
+    else:
+        button_id = ctx.triggered[0]["prop_id"].split(".")[0]
+        if button_id == "rp_btn_total":
+            ntype = "Total"
+        elif button_id == "rp_btn_new":
+            ntype = "New"
+        else:
+            ntype = "Total"
+
+    return country_panel.refresh(country, ntype=ntype)
 
 
 # endregion
