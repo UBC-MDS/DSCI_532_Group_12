@@ -1,6 +1,7 @@
 import pandas as pd
 import datetime
 import os, sys, inspect
+import numpy as np
 
 file_daily_report = "daily_report.csv"
 file_timeseries_confirmed = "time_series_covid19_confirmed_global.csv"
@@ -157,6 +158,41 @@ class data_model:
             )
 
         return result
+
+    def get_timeserie_data_by_country(self, country="all", c_type=case_type.confirmed):
+        """return timeseries data by country
+
+        Args:
+            country (str, optional): country name. Defaults to "all".
+            case_type (int, optional): 1: confirmed, 2: death, 3: recovered. Defaults to case_type.confirmed.
+
+        Raises:
+            Exception: if case_type entered is invalid
+        Return:
+            country_data: DataFrame, date: date, total: total number, yesterday: the day before's number, new: total - yesterday
+        """
+        if c_type == case_type.confirmed:
+            df = self.times_series_confirmed
+        elif c_type == case_type.death:
+            df = self.times_series_death
+        elif c_type == case_type.recovered:
+            df = self.times_series_recovered
+        else:
+            raise Exception("Case type is not supported")
+        if country != "all":
+            country_data = pd.DataFrame(
+                df[df["Country/Region"] == country].iloc[:, 5:].sum()
+            )
+        else:
+            country_data = pd.DataFrame(df.iloc[:, 5:].sum())
+        country_data = country_data.reset_index()
+        country_data.columns = ["date", "total"]
+        yesterday_data = np.zeros(country_data.total.shape[0])
+        yesterday_data[1:] = country_data.total.to_numpy()[0:-1]
+        country_data["yesterday"] = yesterday_data
+        country_data["new"] = country_data.total - country_data["yesterday"]
+
+        return country_data
 
     def save_to_file(self):
         """save the whole data model into file"""
