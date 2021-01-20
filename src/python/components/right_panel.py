@@ -26,11 +26,19 @@ class right_panel(panel):
             [
                 dbc.Row(dbc.Col(self.__create_country_dropdown())),
                 dbc.Row(
-                    [
-                        dbc.Col(panel.create_card("Total cases", "", "lb_confirmed")),
-                        dbc.Col(panel.create_card("Recovered", "", "lb_recovered")),
-                        dbc.Col(panel.create_card("Deaths", "", "lb_deaths")),
-                    ]
+                    dbc.Col(
+                        [
+                            dbc.CardDeck(
+                                [
+                                    panel.create_card(
+                                        "Total cases", "", "lb_confirmed"
+                                    ),
+                                    panel.create_card("Recovered", "", "lb_recovered"),
+                                    panel.create_card("Deaths", "", "lb_deaths"),
+                                ]
+                            )
+                        ]
+                    )
                 ),
                 dbc.Row(dbc.Col(self.__create_button_groups())),
                 dbc.Row(
