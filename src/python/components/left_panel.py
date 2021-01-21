@@ -53,7 +53,7 @@ class left_panel(panel):
             a ranking bar chart of confirmed cases/death cases/recovered cases
         """
         
-       	result = self.__get_aggregated_daily_report()
+       	result = self.data_reader.get_aggregated_daily_report()
         confirmed_data = result[['Country_Region', 'Confirmed']]
         active_data = result[['Country_Region', 'Active']]
         recovered_data = result[['Country_Region', 'Recovered']]
@@ -72,13 +72,7 @@ class left_panel(panel):
         return chart
 
 
-    def __get_aggregated_daily_report(self):
-        """ Aggregate the regional level cases count to country level"""
-        return self.data_reader.daily_report.groupby(
-            'Country_Region'
-        ).agg(
-            {'Confirmed': 'sum',  'Deaths': 'sum', 'Recovered': 'sum', 'Active': 'sum'}
-        ).reset_index()
+
 
 
     def __create_button_groups(self):
@@ -109,5 +103,6 @@ class left_panel(panel):
             )
             .configure_axis(grid=False)
             .configure_title(anchor="start")
+            
         )
         return chart.to_html()

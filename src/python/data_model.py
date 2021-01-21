@@ -120,6 +120,13 @@ class data_model:
 
         # clean up data frames as needed
 
+    def get_aggregated_daily_report(self):
+        """ Aggregate the regional level cases count to country level"""
+        return self.daily_report.groupby(
+            'Country_Region'
+        ).agg(
+            {'Confirmed': 'sum',  'Deaths': 'sum', 'Recovered': 'sum', 'Active': 'sum'}
+        ).reset_index()
 
     def cumulative_filter(self, country="all"):
         """return cumulative cases by country
