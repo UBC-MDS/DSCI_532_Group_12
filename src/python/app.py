@@ -28,6 +28,7 @@ data_reader = dm.data_model(parentdir + "/data/raw")
 
 # region Setup app and layout/frontend
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
+server = app.server
 country_panel = right_panel(data_reader)
 global_panel = left_panel(data_reader)
 map_panel = mid_panel(data_reader)
