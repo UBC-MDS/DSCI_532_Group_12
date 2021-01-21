@@ -8,12 +8,14 @@ import altair as alt
 
 locale.setlocale(locale.LC_ALL, "")
 
-import data_model as dm
-
 import os, sys, inspect
 
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+sys.path.insert(0, currentdir)
 sys.path.insert(0, currentdir + "/components")
+
+import data_model as dm
+
 from right_panel import right_panel
 from left_panel import left_panel
 from mid_panel import mid_panel
