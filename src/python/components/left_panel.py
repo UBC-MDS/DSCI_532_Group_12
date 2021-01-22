@@ -99,7 +99,8 @@ class left_panel(panel):
             .encode(
                 x=alt.X("Cases"), 
                 y=alt.Y("Country_Region", sort='-x'),
-                color=alt.Color('Cases', scale=alt.Scale(range=['white', 'black']))
+                color=alt.Color('Cases', scale=alt.Scale(range=['white', 'black'])),
+                tooltip=['Cases:Q']
             )
             .configure_axis(grid=False)
             .configure_title(anchor="start")
