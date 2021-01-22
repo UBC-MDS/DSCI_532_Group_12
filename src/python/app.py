@@ -107,6 +107,30 @@ def update_left_panel(active, confirmed, death, recovered):
             ctype = "recovered"
     return global_panel.refresh(chart_type=ctype)
 
+@app.callback(
+    Output("world_map", "srcDoc"),
+    # Input("btn_active", "n_clicks"),
+    Input("wm_confirmed", "n_clicks"),
+    Input("wm_death", "n_clicks"),
+    Input("wm_recovered", "n_clicks")
+)
+def update_mid_panel(confirmed, death, recovered):
+    ctx = dash.callback_context
+    if not ctx.triggered:
+        ctype = "confirmed"
+    else:
+        button_id = ctx.triggered[0]["prop_id"].split(".")[0]
+        if button_id == "wm_confirmed":
+            ctype = "confirmed"
+        elif button_id == "wm_death":
+            ctype = "death"
+        # elif button_id == "btn_active":
+        #     ctype = "active"
+        else:
+            ctype = "recovered"
+    return map_panel.refresh(chart_type=ctype)
+
+
 
 # endregion
 
