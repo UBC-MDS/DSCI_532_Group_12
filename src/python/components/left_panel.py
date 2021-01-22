@@ -24,7 +24,6 @@ class left_panel(panel):
 
         self.content = html.Div(
             [
-                
                 dbc.Row(dbc.Col(self.__create_button_groups())),
                 dbc.Row(
                     dbc.Col(
@@ -39,12 +38,12 @@ class left_panel(panel):
                             )
                         ]
                     ),
-                )
+                ),
             ]
         )
 
     def refresh(self, chart_type="confirmed"):
-        """Aggregate the country level data 
+        """Aggregate the country level data
 
         Args:
             chart_type (string): selected chart type from buttons
@@ -52,28 +51,26 @@ class left_panel(panel):
         Returns:
             a ranking bar chart of confirmed cases/death cases/recovered cases
         """
-        
-       	result = self.data_reader.get_aggregated_daily_report()
-        confirmed_data = result[['Country_Region', 'Confirmed']]
-        active_data = result[['Country_Region', 'Active']]
-        recovered_data = result[['Country_Region', 'Recovered']]
-        deaths_data = result[['Country_Region', 'Deaths']]
-        
+
+        result = self.data_reader.get_aggregated_daily_report()
+        confirmed_data = result[["Country_Region", "Confirmed"]]
+        active_data = result[["Country_Region", "Active"]]
+        recovered_data = result[["Country_Region", "Recovered"]]
+        deaths_data = result[["Country_Region", "Deaths"]]
+
         if chart_type == "confirmed":
-        	data = confirmed_data
+            data = confirmed_data
         elif chart_type == "active":
-        	data = active_data
+            data = active_data
         elif chart_type == "recovered":
-        	data = confirmed_data
+            data = confirmed_data
         elif chart_type == "death":
-        	data = confirmed_data
-        data.columns =['Country_Region', 'Cases']
-        chart = self.__create_ranking_bar_chart(data.nlargest(30, 'Cases'), chart_type.title())
+            data = confirmed_data
+        data.columns = ["Country_Region", "Cases"]
+        chart = self.__create_ranking_bar_chart(
+            data.nlargest(30, "Cases"), chart_type.title()
+        )
         return chart
-
-
-
-
 
     def __create_button_groups(self):
         button_groups = dbc.ButtonGroup(
@@ -88,22 +85,17 @@ class left_panel(panel):
         )
         return button_groups
 
-
     def __create_ranking_bar_chart(self, data, type):
         chart = (
-            alt.Chart(
-                data,
-                title=""
-            )
+            alt.Chart(data, title="")
             .mark_bar()
             .encode(
-                x=alt.X("Cases", title=" "), 
-                y=alt.Y("Country_Region", sort='-x', title=" "),
-                color=alt.Color('Cases', scale=alt.Scale(range=['grey', 'black'])),
-                tooltip=['Cases:Q']
+                x=alt.X("Cases", title=" "),
+                y=alt.Y("Country_Region", sort="-x", title=" "),
+                color=alt.Color("Cases", scale=alt.Scale(scheme="orangered")),
+                tooltip=["Cases:Q"],
             )
             .configure_axis(grid=False)
             .configure_title(anchor="start")
-            
         )
         return chart.to_html()
