@@ -62,7 +62,7 @@ class right_panel(panel):
                             style={
                                 "border-width": "0",
                                 "width": "100%",
-                                "height": "200",
+                                "height": "300px",
                             },
                         )
                     )
