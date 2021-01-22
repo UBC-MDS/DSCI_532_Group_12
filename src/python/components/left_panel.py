@@ -68,7 +68,7 @@ class left_panel(panel):
         elif chart_type == "death":
         	data = confirmed_data
         data.columns =['Country_Region', 'Cases']
-        chart = self.__create_ranking_bar_chart(data, chart_type.title())
+        chart = self.__create_ranking_bar_chart(data.nlargest(30, 'Cases'), chart_type.title())
         return chart
 
 
@@ -97,9 +97,9 @@ class left_panel(panel):
             )
             .mark_bar()
             .encode(
-                x=alt.X("Cases"), 
-                y=alt.Y("Country_Region", sort='-x'),
-                color=alt.Color('Cases', scale=alt.Scale(range=['white', 'black'])),
+                x=alt.X("Cases", title=" "), 
+                y=alt.Y("Country_Region", sort='-x', title=" "),
+                color=alt.Color('Cases', scale=alt.Scale(range=['grey', 'black'])),
                 tooltip=['Cases:Q']
             )
             .configure_axis(grid=False)
