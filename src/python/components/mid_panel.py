@@ -108,5 +108,6 @@ class mid_panel(panel):
         )
 
         chart = base + points
+        chart = chart.configure_legend(orient="bottom")
 
         return chart.to_html()
