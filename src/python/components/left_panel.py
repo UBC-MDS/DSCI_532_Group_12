@@ -97,5 +97,6 @@ class left_panel(panel):
             )
             .configure_axis(grid=False)
             .configure_title(anchor="start")
+            .configure_legend(orient="bottom")
         )
         return chart.to_html()
