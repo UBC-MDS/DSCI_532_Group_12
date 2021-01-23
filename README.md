@@ -18,7 +18,7 @@ On the right side of the dashboard, the country level statistics can be seen in 
 
 ## Dashboard Design
 
-![](docs/images/dash-demo.png)
+![](docs/images/dashboad_sketch.png)
 
 ## Usage
 
