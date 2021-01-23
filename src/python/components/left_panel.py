@@ -63,9 +63,9 @@ class left_panel(panel):
         elif chart_type == "active":
             data = active_data
         elif chart_type == "recovered":
-            data = confirmed_data
+            data = recovered_data
         elif chart_type == "death":
-            data = confirmed_data
+            data = deaths_data
         data.columns = ["Country_Region", "Cases"]
         chart = self.__create_ranking_bar_chart(
             data.nlargest(30, "Cases"), chart_type.title()
