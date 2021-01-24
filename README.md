@@ -16,13 +16,13 @@ On the left side of the dashboard, the user can view the world cases trend for r
 
 On the right side of the dashboard, the country level statistics can be seen in both number format and trend-line format. By default, the user will see Canada's (based on locale) statistics when opening the dashboard. Users can also opt for other region's statistics by selecting from the drop-down menu to view both the case summary and the trend line.
 
-## Dashboard Design
+## Dashboard Demo
 
 ![](docs/images/dash-demo.gif)
 
 ## Usage
 
-Access dashboard at https://covid-data-portal.herokuapp.com/
+Access the live dashboard at https://covid-data-portal.herokuapp.com/
 
 ### Build the dashboard locally
 
