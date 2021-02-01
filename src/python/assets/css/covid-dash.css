@@ -1,17 +1,35 @@
 .panel_title{
     text-align: left;
+    background-color: grey;
+    color:white;
+    padding-left:10px;
 }
+.left_panel{
+    padding-left: 0;
+}
+
+.right_panel{
+    padding-right: 0;
+}
+
 .heading{
     text-align: center;
     background-color: black;
     color:white
 }
+
+.h2{
+    font-size:8pt;
+}
 .card-title{
    
 }
 .card-text{
- 
+    text-align: center;
 }
 .row{
     padding-bottom: 1px;
+}
+.death_text{
+    color:red
 }

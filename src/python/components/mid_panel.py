@@ -23,7 +23,7 @@ class mid_panel(panel):
     def __init__(self, datamodel):
         super().__init__("World Map", datamodel)
 
-        self.content = html.Div(
+        self.content = dbc.Col(
             [
                 dbc.Row(dbc.Col(self.__create_button_groups())),
                 dbc.Row(
@@ -33,17 +33,34 @@ class mid_panel(panel):
                                 id="world_map",
                                 style={
                                     "border-width": "0",
-                                    "width": "1000px",
-                                    "height": "1000px",
+                                    "width": "100%",
+                                    "height": "570px",
                                 },
                             )
-                        ]
+                        ],
+                        width=12,
                     ),
                 ),
-            ]
+                dbc.Row(
+                    dbc.Col(
+                        [
+                            html.Iframe(
+                                id="chart_global_trend",
+                                style={
+                                    "border-width": "0",
+                                    "width": "100%",
+                                    "height": "300px",
+                                },
+                            )
+                        ],
+                        width=12,
+                    ),
+                ),
+            ],
+            width=12,
         )
 
-    def refresh(self, chart_type="confirmed"):
+    def refresh(self, chart_type="confirmed", ntype="Total"):
         """Aggregate the country level data
 
         Args:
@@ -66,8 +83,10 @@ class mid_panel(panel):
         elif chart_type == "death":
             data = deaths_data
         # data.columns =['Country_Region', 'Cases']
-        chart = self.__create_world_map_chart(data, chart_type.title())
-        return chart
+        world_map = self.__create_world_map_chart(data, chart_type.title())
+
+        trend_chart = self.__create_world_timeseries_chart(chart_type)
+        return world_map, trend_chart
 
     def __create_button_groups(self):
         button_groups = dbc.ButtonGroup(
@@ -103,11 +122,58 @@ class mid_panel(panel):
                     # legend=None,
                 ),
                 color=alt.Color("value", scale=alt.Scale(scheme="orangered")),
-                tooltip=["Country/Region:N", "value:Q"],
+                tooltip=[
+                    alt.Tooltip("Country/Region:N"),
+                    alt.Tooltip("value:Q", format=",.0f"),
+                ],
             )
         )
 
         chart = base + points
         chart = chart.configure_legend(orient="bottom")
 
+        return chart.to_html()
+
+    def __create_world_timeseries_chart(self, case_type, ntype="New"):
+        """create trend chart for global numbers
+
+        Args:
+            case_type (string): "confirmed", "recovered", "death"
+            ntype (string): "Total" or "New"
+
+        Returns:
+            [type]: [description]
+        """
+
+        if case_type == "confirmed":
+            chart_title = "Global Confirmed Cases"
+            case_type = 1
+        elif case_type == "death":
+            chart_title = "Global Deaths"
+            case_type = 2
+        elif case_type == "recovered":
+            chart_title = "Global Recovered Cases"
+            case_type = 3
+        if ntype == "Total":
+            chart_title = chart_title + " Over Time"
+        else:
+            chart_title = "New " + chart_title + " Per Day"
+        data = self.data_reader.get_timeserie_data_by_country("all", case_type)
+
+        chart = (
+            alt.Chart(
+                data,
+                title=alt.TitleParams(text=chart_title),
+                height=200,
+            )
+            .mark_line()
+            .transform_filter(alt.FieldEqualPredicate(field="type", equal=ntype))
+            .encode(
+                x=alt.X("date:T", title="", axis=alt.Axis(format=("%b %Y"))),
+                y=alt.Y("count:Q", title=""),
+            )
+            .configure_axis(grid=False)
+            .configure_title(anchor="start")
+            .properties(width=735)
+        )
         return chart.to_html()

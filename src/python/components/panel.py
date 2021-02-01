@@ -23,7 +23,7 @@ class panel:
         return self.layout
 
     @classmethod
-    def create_card(cls, card_title, card_content, content_id):
+    def create_card(cls, card_title, card_content, content_id, css_class="card-text"):
         """create a dbc.Card object with title and content
 
         Args:
@@ -37,8 +37,13 @@ class panel:
             dbc.CardBody(
                 [
                     html.H5(card_title, className="card-title"),
-                    html.P(card_content, className="card-text", id=content_id),
-                ]
+                    html.P(card_content, className=css_class, id=content_id),
+                ],
+                className=css_class,
             )
         )
         return card
+
+    @classmethod
+    def format_number(cls, f_number):
+        return format(f_number, ",.0f")
