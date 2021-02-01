@@ -30,16 +30,21 @@ data_reader = dm.data_model(parentdir + "/data/raw")
 
 # region Setup app and layout/frontend
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.COSMO])
-#CERULEAN, COSMO, CYBORG, DARKLY, FLATLY, JOURNAL, LITERA, LUMEN, LUX, MATERIA, MINTY, PULSE, SANDSTONE, SIMPLEX, SKETCHY, SLATE, SOLAR, SPACELAB, SUPERHERO, UNITED, YETI
+# CERULEAN, COSMO, CYBORG, DARKLY, FLATLY, JOURNAL, LITERA, LUMEN, LUX, MATERIA, MINTY, PULSE, SANDSTONE, SIMPLEX, SKETCHY, SLATE, SOLAR, SPACELAB, SUPERHERO, UNITED, YETI
 server = app.server
 country_panel = right_panel(data_reader)
 global_panel = left_panel(data_reader)
 map_panel = mid_panel(data_reader)
 alt.themes.enable("ggplot2")
 app.title = "Covid-19 Data Portal"
+dashboard_heading = (
+    "Covid Data Portal (Last Updated: "
+    + data_reader.last_updated.strftime("%m/%d/%Y")
+    + ")"
+)
 app.layout = dbc.Container(
     [
-        dbc.Row(dbc.Col(html.Div([html.H1("Covid Data Portal")]), className="heading")),
+        dbc.Row(dbc.Col(html.Div([html.H1(dashboard_heading)]), className="heading")),
         dbc.Row(
             [
                 dbc.Col([global_panel.render()], width=3, className="panel"),
@@ -67,7 +72,6 @@ app.layout = dbc.Container(
     Input("dd_country", "value"),
     Input("rp_btn_total", "n_clicks"),
     Input("rp_btn_new", "n_clicks"),
-
 )
 def update_right_panel(country, total_click, new_click):
     ctx = dash.callback_context
@@ -84,12 +88,13 @@ def update_right_panel(country, total_click, new_click):
 
     return country_panel.refresh(country, ntype=ntype)
 
+
 @app.callback(
     Output("chart_cases_ranking", "srcDoc"),
     Input("btn_active", "n_clicks"),
     Input("btn_confirmed", "n_clicks"),
     Input("btn_death", "n_clicks"),
-    Input("btn_recovered", "n_clicks")
+    Input("btn_recovered", "n_clicks"),
 )
 def update_left_panel(active, confirmed, death, recovered):
     ctx = dash.callback_context
@@ -107,12 +112,14 @@ def update_left_panel(active, confirmed, death, recovered):
             ctype = "recovered"
     return global_panel.refresh(chart_type=ctype)
 
+
 @app.callback(
     Output("world_map", "srcDoc"),
+    Output("chart_global_trend", "srcDoc"),
     # Input("btn_active", "n_clicks"),
     Input("wm_confirmed", "n_clicks"),
     Input("wm_death", "n_clicks"),
-    Input("wm_recovered", "n_clicks")
+    Input("wm_recovered", "n_clicks"),
 )
 def update_mid_panel(confirmed, death, recovered):
     ctx = dash.callback_context
@@ -129,7 +136,6 @@ def update_mid_panel(confirmed, death, recovered):
         else:
             ctype = "recovered"
     return map_panel.refresh(chart_type=ctype)
-
 
 
 # endregion
