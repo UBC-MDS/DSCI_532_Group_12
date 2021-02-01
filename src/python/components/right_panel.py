@@ -22,7 +22,7 @@ class right_panel(panel):
     def __init__(self, datamodel):
         super().__init__("Country", datamodel)
 
-        self.content = html.Div(
+        self.content = dbc.Col(
             [
                 dbc.Row(dbc.Col(self.__create_country_dropdown())),
                 dbc.Row(
@@ -34,7 +34,9 @@ class right_panel(panel):
                                         "Total cases", "", "lb_confirmed"
                                     ),
                                     panel.create_card("Recovered", "", "lb_recovered"),
-                                    panel.create_card("Deaths", "", "lb_deaths"),
+                                    panel.create_card(
+                                        "Deaths", "", "lb_deaths", "death_text"
+                                    ),
                                 ]
                             )
                         ]
@@ -52,7 +54,8 @@ class right_panel(panel):
                                     "height": "300px",
                                 },
                             )
-                        ]
+                        ],
+                        width=12,
                     ),
                 ),
                 dbc.Row(
@@ -64,10 +67,12 @@ class right_panel(panel):
                                 "width": "100%",
                                 "height": "300px",
                             },
-                        )
-                    )
+                        ),
+                        width=12,
+                    ),
                 ),
-            ]
+            ],
+            width=12,
         )
 
     def refresh(self, country, ntype="Total"):
@@ -81,9 +86,9 @@ class right_panel(panel):
         """
         self.selected_country = country
         result = self.data_reader.cumulative_filter(country)
-        confirmed = f"{result.Confirmed:n}"
-        recovered = f"{result.Recovered:n}"
-        deaths = f"{result.Deaths:n}"
+        confirmed = panel.format_number(result.Confirmed)
+        recovered = panel.format_number(result.Recovered)
+        deaths = panel.format_number(result.Deaths)
 
         c_chart = self.__create_timeserie_chart(country, case_type=1, ntype=ntype)
         d_chart = self.__create_timeserie_chart(country, case_type=2, ntype=ntype)
@@ -118,12 +123,13 @@ class right_panel(panel):
             alt.Chart(
                 data,
                 title=alt.TitleParams(text=chart_title, subtitle=country),
-                height=200,
             )
             .mark_line()
             .transform_filter(alt.FieldEqualPredicate(field="type", equal=ntype))
             .encode(x=alt.X("date:T", title=""), y=alt.Y("count:Q", title=""))
             .configure_axis(grid=False)
             .configure_title(anchor="start")
+            .properties(width=350, height=200)
+            # .properties(width="container", height="container")
         )
         return chart.to_html()

@@ -47,12 +47,12 @@ app.layout = dbc.Container(
         dbc.Row(dbc.Col(html.Div([html.H1(dashboard_heading)]), className="heading")),
         dbc.Row(
             [
-                dbc.Col([global_panel.render()], width=3, className="panel"),
+                dbc.Col([global_panel.render()], width=3, className="left_panel"),
                 dbc.Col([map_panel.render()], width=6, className="panel"),
                 dbc.Col(
                     [country_panel.render()],
                     width=3,
-                    className="panel",
+                    className="right_panel",
                 ),
             ]
         ),

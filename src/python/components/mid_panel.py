@@ -23,7 +23,7 @@ class mid_panel(panel):
     def __init__(self, datamodel):
         super().__init__("World Map", datamodel)
 
-        self.content = html.Div(
+        self.content = dbc.Col(
             [
                 dbc.Row(dbc.Col(self.__create_button_groups())),
                 dbc.Row(
@@ -33,11 +33,12 @@ class mid_panel(panel):
                                 id="world_map",
                                 style={
                                     "border-width": "0",
-                                    "width": "1000px",
+                                    "width": "100%",
                                     "height": "570px",
                                 },
                             )
-                        ]
+                        ],
+                        width=12,
                     ),
                 ),
                 dbc.Row(
@@ -47,14 +48,16 @@ class mid_panel(panel):
                                 id="chart_global_trend",
                                 style={
                                     "border-width": "0",
-                                    "width": "1000px",
+                                    "width": "100%",
                                     "height": "300px",
                                 },
                             )
-                        ]
+                        ],
+                        width=12,
                     ),
                 ),
-            ]
+            ],
+            width=12,
         )
 
     def refresh(self, chart_type="confirmed", ntype="Total"):
@@ -119,7 +122,10 @@ class mid_panel(panel):
                     # legend=None,
                 ),
                 color=alt.Color("value", scale=alt.Scale(scheme="orangered")),
-                tooltip=["Country/Region:N", "value:Q"],
+                tooltip=[
+                    alt.Tooltip("Country/Region:N"),
+                    alt.Tooltip("value:Q", format=",.0f"),
+                ],
             )
         )
 
@@ -128,7 +134,7 @@ class mid_panel(panel):
 
         return chart.to_html()
 
-    def __create_world_timeseries_chart(self, case_type, ntype="Total"):
+    def __create_world_timeseries_chart(self, case_type, ntype="New"):
         """create trend chart for global numbers
 
         Args:

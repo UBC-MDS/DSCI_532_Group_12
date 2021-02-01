@@ -7,6 +7,7 @@ import locale
 import altair as alt
 
 from panel import panel
+from decimal import *
 
 locale.setlocale(locale.LC_ALL, "")
 
@@ -22,8 +23,9 @@ class left_panel(panel):
     def __init__(self, datamodel):
         super().__init__("Global", datamodel)
 
-        self.content = html.Div(
+        self.content = dbc.Col(
             [
+                dbc.Row(dbc.Col(self.__create_total_statistics())),
                 dbc.Row(dbc.Col(self.__create_button_groups())),
                 dbc.Row(
                     dbc.Col(
@@ -32,14 +34,15 @@ class left_panel(panel):
                                 id="chart_cases_ranking",
                                 style={
                                     "border-width": "0",
-                                    "width": "100%",
+                                    "width": "400px",
                                     "height": "800px",
                                 },
                             )
                         ]
                     ),
                 ),
-            ]
+            ],
+            width=12,
         )
 
     def refresh(self, chart_type="confirmed"):
@@ -85,15 +88,37 @@ class left_panel(panel):
         )
         return button_groups
 
+    def __create_total_statistics(self):
+        data = self.data_reader.cumulative_filter()
+        confirmed_cases = panel.format_number(data.Confirmed)
+        active_cases = panel.format_number(data.Active)
+        deaths = panel.format_number(data.Deaths)
+
+        content = dbc.Container(
+            [
+                dbc.Row(dbc.Col(html.H5("Total Confirmed Cases: " + confirmed_cases))),
+                dbc.Row(
+                    dbc.Col(html.H5("Total Deaths: " + deaths, style={"color": "red"}))
+                ),
+                dbc.Row(dbc.Col(html.H5("Total Active Cases: " + active_cases))),
+            ]
+        )
+        return content
+
     def __create_ranking_bar_chart(self, data, type):
         chart = (
-            alt.Chart(data, title="")
+            alt.Chart(
+                data,
+                title=alt.TitleParams(
+                    text="Top 30 Countries", subtitle="By " + type + " Cases"
+                ),
+            )
             .mark_bar()
             .encode(
-                x=alt.X("Cases", title=" "),
+                x=alt.X("Cases", title=" ", axis=alt.Axis(labels=False)),
                 y=alt.Y("Country_Region", sort="-x", title=" "),
                 color=alt.Color("Cases", scale=alt.Scale(scheme="orangered")),
-                tooltip=["Cases:Q"],
+                tooltip=alt.Tooltip(["Cases:Q"], format=",.0f"),
             )
             .configure_axis(grid=False)
             .configure_title(anchor="start")

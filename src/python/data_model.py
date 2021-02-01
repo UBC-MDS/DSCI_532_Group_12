@@ -407,6 +407,7 @@ class data_model:
         yesterday_data[1:] = country_data.Total.to_numpy()[0:-1]
         country_data["yesterday"] = yesterday_data
         country_data["New"] = country_data.Total - country_data["yesterday"]
+        country_data.loc[country_data.New < 0, "New"] = 0
 
         country_data = country_data.loc[:, ["date", "Total", "New"]]
         country_data = pd.melt(
