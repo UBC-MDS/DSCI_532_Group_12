@@ -49,7 +49,7 @@ class data_model:
         dr_path = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports"
         yesterday = date - datetime.timedelta(days=1)
         bf_yesterday = yesterday - datetime.timedelta(days=1)
-        selt.last_updated = date
+        self.last_updated = date
 
         dr_files = [
             self.__create_filename(date),
