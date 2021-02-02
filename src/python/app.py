@@ -38,7 +38,7 @@ map_panel = mid_panel(data_reader)
 alt.themes.enable("ggplot2")
 app.title = "Covid-19 Data Portal"
 dashboard_heading = (
-    "Covid Data Portal (Last Updated: "
+    "Covid-19 Data Portal (Last Updated: "
     + data_reader.last_updated.strftime("%m/%d/%Y")
     + ")"
 )

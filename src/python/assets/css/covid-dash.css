@@ -31,5 +31,6 @@
     padding-bottom: 1px;
 }
 .death_text{
-    color:red
+    color:red;
+    text-align: center;
 }
