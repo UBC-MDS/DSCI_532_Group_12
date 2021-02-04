@@ -18,6 +18,12 @@
     color:white
 }
 
+.footer{
+    text-align: center;
+    background-color: white;
+    color:black
+}
+
 .h2{
     font-size:8pt;
 }
@@ -33,4 +39,10 @@
 .death_text{
     color:red;
     text-align: center;
+}
+
+.body {
+  overflow: hidden; /* Hide scrollbars */
+  width: 100%,
+  height: 100%
 }
