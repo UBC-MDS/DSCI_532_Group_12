@@ -25,6 +25,7 @@ class right_panel(panel):
         self.content = dbc.Col(
             [
                 dbc.Row(dbc.Col(self.__create_country_dropdown())),
+                html.Br(),
                 dbc.Row(
                     dbc.Col(
                         [
@@ -42,6 +43,7 @@ class right_panel(panel):
                         ]
                     )
                 ),
+                html.Br(),
                 dbc.Row(dbc.Col(self.__create_button_groups())),
                 dbc.Row(
                     dbc.Col(
