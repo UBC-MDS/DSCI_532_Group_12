@@ -70,7 +70,12 @@ app.layout = dbc.Container(
         ),
     ],
     fluid=True,
-    style={"border-width": "0", "width": "100%", "height": "100%"},
+    style={
+        "border-width": "0",
+        "width": "100%",
+        "height": "100%",
+        "overflow-x": "hidden",
+    },
 )
 
 # endregion
@@ -156,5 +161,5 @@ def update_mid_panel(confirmed, death, recovered):
 
 # endregion
 
-# if __name__ == "__main__":
-#     app.run_server(debug=True)  # activate hot reloading
+if __name__ == "__main__":
+    app.run_server(debug=True)  # activate hot reloading

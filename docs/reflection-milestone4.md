@@ -1,29 +1,55 @@
+---
+editor_options: 
+  markdown: 
+    wrap: sentence
+---
+
 # Reflection
-## Progress of the dashboard:
-We have managed to achieve all the functionalities as we designed in our initial proposal. In this milestone, we have attempted to cover most of the high and middle priority feedback coming from the TA, Joel, and our peers. The main improvements have been listed as follow:
-- As instructed by the TA from the <a href=https://github.com/UBC-MDS/DSCI_532_Group_12/issues/44>feedback</a>, we filled the middle panel with another new cases per day trendline which can be controled by the buttons in the middle panels to switch the cases type. This change filled up most of the spacing in the bottom of the dashboard, which rendered the layout more balanced.
-- We also rescaled the middle panel map size and adjusted the bubble sizes, so that users can gain more information from the visualization. Especially for countries with smaller amount of cases, their bubbles can be more representative.
-- We removed the scrolling bar from the left panel and resized the graph to provide the users with better a user experience. In addition, the total cases count has also been added to on the left panel to give the users more information.
-- We adjusted the layout slightly for the right panel to make it less compact.
-- The updated time has been added at the very bottom of the page following Joel's suggestion.
+
+## Progress of the dashboard
+
+We have managed to achieve most of the functionalities designed in our initial proposal.
+In this milestone, we have attempted to cover most of the high and medium priority feedback coming from the TA, Joel, and our peers.
+
+The main improvements are listed as follow:
+
+-   As recommended by our TA's [feedback](https://github.com/UBC-MDS/DSCI_532_Group_12/issues/44), a line graph showing new cases trend is added to the middle panel.
+    This change fills up most of the space under the world map, which makes the layout more balanced
+
+-   We adjusted the scale of the bubbles showing number of cases on the world map to highlight better the difference of Covid-19's impact among countries
+
+-   We removed the scroll-bar from the bar chart ranking Top 30 countries and added global statistics to the left panel
+
+-   We added some spacing among rows of component on the right panel per Joel's feedback
+
+-   A time-stamp showing the last updated date of the data is added
 
 Up to this release, our panel should have the following functionalities:
-The left panel contains a statistic summary and a bar chart which shows the user the ranking of case count by country with the button for user to choose if they want to see (Confirmed Cases, Active Cases, Recovered Cases or Deaths).
 
-In the middle panel, the user could surface the distribution of the cases geographically in a map, with the options to choose confirmed cases, death cases, or recovered cases. The user can also check new cases per day for each categories from this categories. 
+-   The left panel (Global) contains global statistics and a ranking bar chart which shows Top 30 countries most affected by the pandemic
 
-In the right panel, the user can check the detailed trend by country and category. Meanwhile, the right panel also shows the user how many cases in the selected category each country currently have. 
-## Development Discussion
-Due to the time constraint of the implementation for this milestone, we have prioritized the tasks to implement by their complexity, development efforts, benefits and demand rationality. During the implementation, it's been acknowledged by our team that customizing the CSS for some details has been tricky in python with dash library. That's why we haven't completed some of the UI enhacement tasks which couldn't bring about significant benefits from the UX perspective. We also found some potential improvements are complex due to the nature of our source data, as we have to refactor the code substantially to create a toggle button or a slide bar.
+-   The middle panel (World Map) illustrates the case distribution geographically across the world and a line graph showing new cases trend
 
-***Below we have categorized what we have left by why we didn't choose to do it:***
+-   The right panel shows a country's summary statistics and trends per user selection
 
-- Relatively low benefits added with high development efforts 
-    - Allow filtering by time frame for charts to show trends. (This task will need significant amount of effort to refactor the code for the data model, which is also out of the scope of our initial proposal) 
-- Technically complicated 
-    - Add interaction between the left panel and middle panel. (As the left panel and middel panel were implemented seperately and they were different classes from higher level, it's technically hard to make them interactive without refactor the code extensively at this stage.) 
-    - Add a toggle button to switch between cases number and cases per population density. (We had problem looking for a reliable population data that can be merged to our COVID data easily. This will also create a substantial amount of code change that can hardly be done within the given time.) 
-    - Previously we thought we should have make the dashboard responsive, however this change can be relatively hard to achieve given the framework we are using and the time constraint.
-- Not bring about many benefits with low priority 
-    - Our peers suggested changing the color palettes for all panels, but it's really hard to tell as people all have different views on design of color. 
-    - Our team also considered to cache the `.csv` file instead of load it everytime from John Hopkins Repository, but we haven't got time to refactor this code yet. This might be very minor in terms of affecting the usage of the dashboard. 
+## Development Discussion 
+
+There are some improvement opportunities acknowledged but delayed to future development due to the time constraint of this milestone, those can be found below.
+
+-   **New features with substantial development effort**
+
+    -   Allow user to select a time frame for viewing data: it requires changes both to our data access and UI layers
+
+    -   Allow user to switch between total case and case per population: this requires using another data set to get world population, changes to our data access and UI layers
+
+    -   Allow interaction between panels: selecting a country in the world map/selecting a country from the world ranking will display its statistics on the right panel
+
+-   **Persistent layout issues without a technical proper solution**
+
+    -   Horizontal scroll-bar is still displayed when displaying the dashboard on 1920x1080 screen: we tried applying `overflow:hidden` but it will always disable using scroll-bar for all components
+
+-   **Small UI improvements suggested by our peer but not implemented**
+
+    -   Change color palette for different types of case (confirmed, death, recovered): we find our current color scheme (creme, red, white, black, gray) reflect well the situation of the pandemic
+
+    -   Highlight selected buttons: the buttons are currently wrapped by boxes around them, changing css style of those buttons will make the code more complicated to maintain as there is no easy way to do it but addressing that within callback methods (which are already quite complex)
