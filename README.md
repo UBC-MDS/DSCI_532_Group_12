@@ -16,7 +16,7 @@ On the right side of the dashboard, the country level statistics can be seen in 
 
 ## Dashboard
 
-![](docs/images/dash-demo.gif)
+![](dash-demo.png)
 
 ### Build the dashboard locally
 
