@@ -1,20 +1,12 @@
----
-editor_options: 
-  markdown: 
-    wrap: sentence
----
-
 # Reflection
 
 ## Progress of the dashboard
 
-We have managed to achieve most of the functionalities designed in our initial proposal.
-In this milestone, we have attempted to cover most of the high and medium priority feedback coming from the TA, Joel, and our peers.
+We have managed to achieve most of the functionalities designed in our initial proposal. In this milestone, we have attempted to cover most of the high and medium priority feedback coming from the TA, Joel, and our peers.
 
 The main improvements are listed as follow:
 
--   As recommended by our TA's [feedback](https://github.com/UBC-MDS/DSCI_532_Group_12/issues/44), a line graph showing new cases trend is added to the middle panel.
-    This change fills up most of the space under the world map, which makes the layout more balanced
+-   As recommended by our TA's [feedback](https://github.com/UBC-MDS/DSCI_532_Group_12/issues/44), a line graph showing new cases trend is added to the middle panel. This change fills up most of the space under the world map, which makes the layout more balanced
 
 -   We adjusted the scale of the bubbles showing number of cases on the world map to highlight better the difference of Covid-19's impact among countries
 
