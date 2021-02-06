@@ -34,7 +34,7 @@ class left_panel(panel):
                                 id="chart_cases_ranking",
                                 style={
                                     "border-width": "0",
-                                    "width": "400px",
+                                    "width": "450px",
                                     "height": "800px",
                                 },
                             )
@@ -112,7 +112,7 @@ class left_panel(panel):
                 title=alt.TitleParams(
                     text="Top 30 Countries", subtitle="By " + type + " Cases"
                 ),
-                width=190,
+                width=290,
             )
             .mark_bar()
             .encode(

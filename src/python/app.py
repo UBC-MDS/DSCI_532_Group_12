@@ -38,21 +38,24 @@ map_panel = mid_panel(data_reader)
 alt.themes.enable("ggplot2")
 app.title = "Covid-19 Data Portal"
 dashboard_heading = "Covid-19 Data Portal"
+last_updated = "Last Updated: " + data_reader.last_updated.strftime("%m/%d/%Y")
 app.layout = dbc.Container(
     [
         dbc.Row(
-            dbc.Col(
+            [
                 html.Div(
-                    [
-                        html.H1(dashboard_heading),
-                        html.H6(
-                            "Data Last Updated: "
-                            + data_reader.last_updated.strftime("%m/%d/%Y")
-                        ),
-                    ]
+                    dashboard_heading,
+                    style={
+                        "font-size": "30pt",
+                        "text-align": "center",
+                        "left": "0%",
+                        "right": "0%",
+                    },
                 ),
-                className="heading",
-            )
+                html.Div(className="space"),
+                html.Div(last_updated, style={"font-size": "14pt", "right": "0px"}),
+            ],
+            className="heading",
         ),
         dbc.Row(
             [
