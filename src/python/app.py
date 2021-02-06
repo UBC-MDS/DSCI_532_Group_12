@@ -87,6 +87,7 @@ app.layout = dbc.Container(
     Input("rp_btn_new", "n_clicks"),
 )
 def update_right_panel(country, total_click, new_click):
+    """update the right panel when changes triggered by its controls"""
     ctx = dash.callback_context
     if not ctx.triggered:
         ntype = "Total"
@@ -110,6 +111,7 @@ def update_right_panel(country, total_click, new_click):
     Input("btn_recovered", "n_clicks"),
 )
 def update_left_panel(active, confirmed, death, recovered):
+    """update all components on the left panel upon callback"""
     ctx = dash.callback_context
     if not ctx.triggered:
         ctype = "confirmed"
@@ -135,6 +137,7 @@ def update_left_panel(active, confirmed, death, recovered):
     Input("wm_recovered", "n_clicks"),
 )
 def update_mid_panel(confirmed, death, recovered):
+    """update all controls on mid panel upon callback"""
     ctx = dash.callback_context
     if not ctx.triggered:
         ctype = "confirmed"

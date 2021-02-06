@@ -20,6 +20,8 @@ import data_model as dm
 
 
 class left_panel(panel):
+    """handle all activities of the left panel"""
+
     def __init__(self, datamodel):
         super().__init__("Global", datamodel)
 
@@ -76,6 +78,11 @@ class left_panel(panel):
         return chart
 
     def __create_button_groups(self):
+        """create buttons Confirmed/Death/Recovered/Active
+
+        Returns:
+            dbc.ButtonGroup
+        """
         button_groups = dbc.ButtonGroup(
             [
                 dbc.Button("Confirmed", active=True, id="btn_confirmed"),
@@ -89,6 +96,11 @@ class left_panel(panel):
         return button_groups
 
     def __create_total_statistics(self):
+        """retrieve global statistics
+
+        Returns:
+            html: all statistics
+        """
         data = self.data_reader.cumulative_filter()
         confirmed_cases = panel.format_number(data.Confirmed)
         active_cases = panel.format_number(data.Active)
@@ -106,6 +118,15 @@ class left_panel(panel):
         return content
 
     def __create_ranking_bar_chart(self, data, type):
+        """create bar chart to rank countries by case type
+
+        Args:
+            data (dataframe): dataset
+            type (string): "confirmed", "death", "recovered
+
+        Returns:
+            altair barchart
+        """
         chart = (
             alt.Chart(
                 data,

@@ -21,6 +21,8 @@ import data_model as dm
 
 
 class mid_panel(panel):
+    """handle all activities related to world map panel"""
+
     def __init__(self, datamodel):
         super().__init__("World Map", datamodel)
 
@@ -92,11 +94,11 @@ class mid_panel(panel):
         return world_map, trend_chart
 
     def __create_button_groups(self):
-        """Create button 
+        """Create button
 
         Returns:
             buttons for three cases
-        """        
+        """
         button_groups = dbc.ButtonGroup(
             [
                 dbc.Button("Confirmed", active=True, id="wm_confirmed"),
@@ -125,7 +127,7 @@ class mid_panel(panel):
         base = (
             alt.Chart(source, title="")
             .mark_geoshape(fill="lightgray", stroke="white")
-            .properties(width=860, height=450 )
+            .properties(width=860, height=450)
             .project("equirectangular")
             # .padding({"left": 0, "right": 0, "bottom": 1, "top":1})
         )
@@ -151,9 +153,8 @@ class mid_panel(panel):
         )
 
         chart = base + points
-        chart = (
-            chart.configure_legend(orient="bottom")
-            .configure_view(strokeWidth=0, )
+        chart = chart.configure_legend(orient="bottom").configure_view(
+            strokeWidth=0,
         )
 
         return chart.to_html()
