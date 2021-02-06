@@ -1,16 +1,13 @@
 # COVID-19 Data Portal
 
-## Authors
+## About
+The goal of this repository is providing COVID-19 statistics by using <a href=https://github.com/plotly/dash>Dash</a> and <a href=https://github.com/python>Python</a>.
 
-| Member        | Github                                            |
-|---------------|---------------------------------------------------|
-| Mai Le        | [lephanthuymai](https://github.com/lephanthuymai) |
-| Rui Wang      | [wang-rui](https://github.com/wang-rui)           |
-| Sang Yoon Lee | [rissangs](https://github.com/rissangs)           |
+The COVID-19 Data Portal live dashboard can be accessed <a href=https://covid-data-portal.herokuapp.com/>here</a>
 
 ## Description
 
-The COVID-19 Data Portal aims to provide the user with an interactive interface to check their number of cases in the world in a straightforward way. When opening the app, the total confirmed cases by region are shown in the center of the app in the form of a map. The user can choose to zoom in the map and check the detailed case information for a specific region.
+The COVID-19 Data Portal aims to provide the user with an interactive interface to check their number of cases in the world in a straightforward way. When opening the app, the total confirmed cases by region are shown in the center of the app in the form of a map. The user can choose to zoom in the map and check the detailed case information for a specific region. Furthermore, the trends for the number of daily confirmed cases are shown in the center of the app as well.
 
 On the left side of the dashboard, the user can view the world cases trend for recovered cases, death cases, and confirmed cases. There's also an ordered ranking on the left side which shows how many cases up till now for each countries in different categories. The user can select the categories such as confirmed cases, death cases, recovered cases from the drop-down menu.
 
@@ -20,9 +17,6 @@ On the right side of the dashboard, the country level statistics can be seen in 
 
 ![](docs/images/dash-demo.gif)
 
-## Usage
-
-Access the live dashboard at https://covid-data-portal.herokuapp.com/
 
 ### Build the dashboard locally
 
