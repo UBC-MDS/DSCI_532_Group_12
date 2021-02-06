@@ -37,15 +37,25 @@ global_panel = left_panel(data_reader)
 map_panel = mid_panel(data_reader)
 alt.themes.enable("ggplot2")
 app.title = "Covid-19 Data Portal"
-dashboard_heading = (
-    "Covid-19 Data Portal"
-)
+dashboard_heading = "Covid-19 Data Portal"
 app.layout = dbc.Container(
     [
-        dbc.Row(dbc.Col(html.Div([html.H1(dashboard_heading)]), className="heading")),
         dbc.Row(
-            [   
-
+            dbc.Col(
+                html.Div(
+                    [
+                        html.H1(dashboard_heading),
+                        html.H6(
+                            "Data Last Updated: "
+                            + data_reader.last_updated.strftime("%m/%d/%Y")
+                        ),
+                    ]
+                ),
+                className="heading",
+            )
+        ),
+        dbc.Row(
+            [
                 dbc.Col([global_panel.render()], width=3, className="left_panel"),
                 dbc.Col([map_panel.render()], width=6, className="panel"),
                 dbc.Col(
@@ -55,13 +65,9 @@ app.layout = dbc.Container(
                 ),
             ],
         ),
-        dbc.Row(dbc.Col(html.Div([html.H4("Data Last Updated: " + data_reader.last_updated.strftime("%m/%d/%Y"))]), className="footer")),
     ],
     fluid=True,
-    style={"border-width": "0",
-            "width": "100%",
-            "height": "100%"}
-
+    style={"border-width": "0", "width": "100%", "height": "100%"},
 )
 
 # endregion
