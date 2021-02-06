@@ -19,13 +19,17 @@ import data_model as dm
 
 
 class right_panel(panel):
+    """handle all activities related to country panel"""
+
     def __init__(self, datamodel):
         super().__init__("Country", datamodel)
 
         self.content = dbc.Col(
             [
-                dbc.Row(dbc.Col(self.__create_country_dropdown())),
-                html.Br(),
+                dbc.Row(
+                    dbc.Col(self.__create_country_dropdown()),
+                    style={"padding-bottom": "10px"},
+                ),
                 dbc.Row(
                     dbc.Col(
                         [
@@ -41,10 +45,13 @@ class right_panel(panel):
                                 ]
                             )
                         ]
-                    )
+                    ),
+                    style={"padding-bottom": "10px"},
                 ),
-                html.Br(),
-                dbc.Row(dbc.Col(self.__create_button_groups())),
+                dbc.Row(
+                    dbc.Col(self.__create_button_groups()),
+                    style={"padding-bottom": "10px"},
+                ),
                 dbc.Row(
                     dbc.Col(
                         [
@@ -97,6 +104,11 @@ class right_panel(panel):
         return confirmed, recovered, deaths, c_chart, d_chart
 
     def __create_country_dropdown(self):
+        """create a dropdown list to select country
+
+        Returns:
+            dcc.Dropdown
+        """
         return dcc.Dropdown(
             id="dd_country",
             options=self.data_reader.get_country_options(),
@@ -104,6 +116,11 @@ class right_panel(panel):
         )
 
     def __create_button_groups(self):
+        """create Total | New buttons
+
+        Returns:
+            dbc.ButtonGroup: group of buttons
+        """
         button_groups = dbc.ButtonGroup(
             [
                 dbc.Button("Total", active=True, id="rp_btn_total"),
@@ -115,6 +132,16 @@ class right_panel(panel):
         return button_groups
 
     def __create_timeserie_chart(self, country, case_type=1, ntype="Total"):
+        """create trend chart showing cases of a country
+
+        Args:
+            country (string): country name
+            case_type (int, optional): 1: confirmed, 2: death, 3: recovered. Defaults to 1.
+            ntype (str, optional): "Total" or "New". Defaults to "Total".
+
+        Returns:
+            chart: altair chart object
+        """
         data = self.data_reader.get_timeserie_data_by_country(country, case_type)
         if case_type == 1:
             chart_title = "Cases over time"
