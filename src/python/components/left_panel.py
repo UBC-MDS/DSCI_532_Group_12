@@ -112,7 +112,7 @@ class left_panel(panel):
                 title=alt.TitleParams(
                     text="Top 30 Countries", subtitle="By " + type + " Cases"
                 ),
-                width=150
+                width=130
             )
             .mark_bar()
             .encode(
