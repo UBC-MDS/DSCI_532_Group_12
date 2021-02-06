@@ -37,15 +37,28 @@ global_panel = left_panel(data_reader)
 map_panel = mid_panel(data_reader)
 alt.themes.enable("ggplot2")
 app.title = "Covid-19 Data Portal"
-dashboard_heading = (
-    "Covid-19 Data Portal"
-)
+dashboard_heading = "Covid-19 Data Portal"
+last_updated = "Last Updated: " + data_reader.last_updated.strftime("%m/%d/%Y")
 app.layout = dbc.Container(
     [
-        dbc.Row(dbc.Col(html.Div([html.H1(dashboard_heading)]), className="heading")),
         dbc.Row(
-            [   
-
+            [
+                html.Div(
+                    dashboard_heading,
+                    style={
+                        "font-size": "30pt",
+                        "text-align": "center",
+                        "left": "0%",
+                        "right": "0%",
+                    },
+                ),
+                html.Div(className="space"),
+                html.Div(last_updated, style={"font-size": "14pt", "right": "0px"}),
+            ],
+            className="heading",
+        ),
+        dbc.Row(
+            [
                 dbc.Col([global_panel.render()], width=3, className="left_panel"),
                 dbc.Col([map_panel.render()], width=6, className="panel"),
                 dbc.Col(
@@ -55,13 +68,14 @@ app.layout = dbc.Container(
                 ),
             ],
         ),
-        dbc.Row(dbc.Col(html.Div([html.H4("Data Last Updated: " + data_reader.last_updated.strftime("%m/%d/%Y"))]), className="footer")),
     ],
     fluid=True,
-    style={"border-width": "0",
-            "width": "100%",
-            "height": "100%"}
-
+    style={
+        "border-width": "0",
+        "width": "100%",
+        "height": "100%",
+        "overflow-x": "hidden",
+    },
 )
 
 # endregion
@@ -78,6 +92,7 @@ app.layout = dbc.Container(
     Input("rp_btn_new", "n_clicks"),
 )
 def update_right_panel(country, total_click, new_click):
+    """update the right panel when changes triggered by its controls"""
     ctx = dash.callback_context
     if not ctx.triggered:
         ntype = "Total"
@@ -101,6 +116,7 @@ def update_right_panel(country, total_click, new_click):
     Input("btn_recovered", "n_clicks"),
 )
 def update_left_panel(active, confirmed, death, recovered):
+    """update all components on the left panel upon callback"""
     ctx = dash.callback_context
     if not ctx.triggered:
         ctype = "confirmed"
@@ -126,6 +142,7 @@ def update_left_panel(active, confirmed, death, recovered):
     Input("wm_recovered", "n_clicks"),
 )
 def update_mid_panel(confirmed, death, recovered):
+    """update all controls on mid panel upon callback"""
     ctx = dash.callback_context
     if not ctx.triggered:
         ctype = "confirmed"

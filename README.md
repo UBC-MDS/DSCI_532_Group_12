@@ -1,9 +1,10 @@
 # COVID-19 Data Portal
 
 ## About
-The goal of this repository is providing COVID-19 statistics by using <a href=https://github.com/plotly/dash>Dash</a> and <a href=https://github.com/python>Python</a>.
 
-The COVID-19 Data Portal live dashboard can be accessed <a href=https://covid-data-portal.herokuapp.com/>here</a>
+The goal of this repository is providing COVID-19 statistics by using [Dash](https://github.com/plotly/dash) and [Python](https://github.com/python).
+
+The COVID-19 Data Portal live dashboard can be accessed [here](https://covid-data-portal.herokuapp.com).
 
 ## Description
 
@@ -13,10 +14,9 @@ On the left side of the dashboard, the user can view the world cases trend for r
 
 On the right side of the dashboard, the country level statistics can be seen in both number format and trend-line format. By default, the user will see Canada's (based on locale) statistics when opening the dashboard. Users can also opt for other region's statistics by selecting from the drop-down menu to view both the case summary and the trend line.
 
-## Dashboard Demo
+## Dashboard
 
 ![](docs/images/dash-demo.gif)
-
 
 ### Build the dashboard locally
 
@@ -26,7 +26,7 @@ On the right side of the dashboard, the country level statistics can be seen in 
 
 Create and activate a conda environment using the env.yaml at the root of this project by running the following command at the root directory of the project. (Alternatively, you can manually install the dependencies listed in the env.yaml file)
 
-```bash
+``` {.bash}
 conda env create --file env.yaml
 conda activate covid_dash
 ```
@@ -35,7 +35,7 @@ Go to the root folder of the repo and execute `python src/python/app.py`
 
 ## License
 
-The COVID-19 Data Portal materials here are licensed under the Creative Commons Attribution 2.5 Canada License (CC BY 2.5 CA). If re-using/re-mixing please provide attribution and link to this webpage.
+-   The COVID-19 Data Portal materials here are licensed under the Creative Commons Attribution 2.5 Canada License (CC BY 2.5 CA). If re-using/re-mixing please provide attribution and link to this web page.
 
 ## References
 
