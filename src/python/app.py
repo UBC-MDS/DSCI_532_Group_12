@@ -156,5 +156,5 @@ def update_mid_panel(confirmed, death, recovered):
 
 # endregion
 
-if __name__ == "__main__":
-    app.run_server(debug=True)  # activate hot reloading
+# if __name__ == "__main__":
+#     app.run_server(debug=True)  # activate hot reloading
