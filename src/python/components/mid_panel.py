@@ -1,3 +1,4 @@
+from altair.vegalite.v4.schema.core import Padding
 import dash
 import dash_html_components as html
 import dash_core_components as dcc
@@ -35,6 +36,7 @@ class mid_panel(panel):
                                     "border-width": "0",
                                     "width": "100%",
                                     "height": "570px",
+                                    "padding-left": "3px",
                                 },
                             )
                         ],
@@ -50,6 +52,7 @@ class mid_panel(panel):
                                     "border-width": "0",
                                     "width": "100%",
                                     "height": "300px",
+                                    "padding-left": "3px",
                                 },
                             )
                         ],
@@ -89,6 +92,11 @@ class mid_panel(panel):
         return world_map, trend_chart
 
     def __create_button_groups(self):
+        """Create button 
+
+        Returns:
+            buttons for three cases
+        """        
         button_groups = dbc.ButtonGroup(
             [
                 dbc.Button("Confirmed", active=True, id="wm_confirmed"),
@@ -101,12 +109,25 @@ class mid_panel(panel):
         return button_groups
 
     def __create_world_map_chart(self, data, type):
+        """Create world map chart
+
+        Args:
+            data (data frame): data frame for each cases
+
+            type (string): selected chart type from buttons
+
+        Returns:
+            a world map bubble chart of confirmed cases/death cases/recovered cases
+        """
+        # alt.renderers.set_embed_options(padding = {"left": 0, "right": 0, "bottom": 1, "top":1})
+
         source = alt.topo_feature(dt.world_110m.url, "countries")
         base = (
             alt.Chart(source, title="")
             .mark_geoshape(fill="lightgray", stroke="white")
-            .properties(width=800, height=450)
+            .properties(width=860, height=450 )
             .project("equirectangular")
+            # .padding({"left": 0, "right": 0, "bottom": 1, "top":1})
         )
 
         points = (
@@ -118,7 +139,7 @@ class mid_panel(panel):
                 size=alt.Size(
                     "value:Q",
                     title="Number of Cases",
-                    scale=alt.Scale(range=[250, 2000]),
+                    scale=alt.Scale(range=[5, 3000]),
                     # legend=None,
                 ),
                 color=alt.Color("value", scale=alt.Scale(scheme="orangered")),
@@ -130,7 +151,10 @@ class mid_panel(panel):
         )
 
         chart = base + points
-        chart = chart.configure_legend(orient="bottom")
+        chart = (
+            chart.configure_legend(orient="bottom")
+            .configure_view(strokeWidth=0, )
+        )
 
         return chart.to_html()
 
@@ -142,7 +166,7 @@ class mid_panel(panel):
             ntype (string): "Total" or "New"
 
         Returns:
-            [type]: [description]
+            a time series chart of confirmed cases/death cases/recovered cases
         """
 
         if case_type == "confirmed":
@@ -174,6 +198,6 @@ class mid_panel(panel):
             )
             .configure_axis(grid=False)
             .configure_title(anchor="start")
-            .properties(width=735)
+            .properties(width=790)
         )
         return chart.to_html()
