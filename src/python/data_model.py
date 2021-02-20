@@ -375,7 +375,13 @@ class data_model:
 
         return result
 
-    def get_timeserie_data_by_country(self, country="all", c_type=case_type.confirmed):
+    def get_timeserie_data_by_country(
+        self,
+        country="all",
+        c_type=case_type.confirmed,
+        start_date=datetime.date(1990, 1, 1),
+        end_date=datetime.date.today(),
+    ):
         """return timeseries data by country
 
         Args:
@@ -417,6 +423,13 @@ class data_model:
             value_name="count",
             var_name="type",
         )
+        country_data["date_col"] = pd.to_datetime(country_data.date).dt.date
+
+        country_data = country_data[
+            (country_data["date_col"] >= start_date)
+            & (country_data["date_col"] <= end_date)
+        ]
+        country_data = country_data.loc[:, ["date", "count", "type"]]
 
         return country_data
 
