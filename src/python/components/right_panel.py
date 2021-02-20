@@ -143,6 +143,7 @@ class right_panel(panel):
             chart: altair chart object
         """
         data = self.data_reader.get_timeserie_data_by_country(country, case_type)
+        # data.date = data.date.astype(str)
         if case_type == 1:
             chart_title = "Cases over time"
         elif case_type == 2:

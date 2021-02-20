@@ -7,6 +7,7 @@ import dash_bootstrap_components as dbc
 import locale
 import altair as alt
 from vega_datasets import data as dt
+import datetime
 
 from panel import panel
 
@@ -25,6 +26,8 @@ class mid_panel(panel):
 
     def __init__(self, datamodel):
         super().__init__("World Map", datamodel)
+        current_date = datetime.date.today()
+        start_date = current_date - datetime.timedelta(days=180)
 
         self.content = dbc.Col(
             [
@@ -47,9 +50,39 @@ class mid_panel(panel):
                 ),
                 dbc.Row(
                     dbc.Col(
+                        dcc.DatePickerRange(
+                            id="global_time_frame",
+                            min_date_allowed=datetime.date(2020, 1, 1),
+                            max_date_allowed=datetime.date.today(),
+                            # initial_visible_month=datetime.date.today(),
+                            start_date=start_date,
+                            end_date=current_date,
+                            stay_open_on_select=True,
+                            updatemode="singledate",
+                        )
+                    )
+                ),
+                dbc.Row(
+                    dbc.Col(
                         [
                             html.Iframe(
-                                id="chart_global_trend",
+                                id="chart_global_trend_new",
+                                style={
+                                    "border-width": "0",
+                                    "width": "100%",
+                                    "height": "300px",
+                                    "padding-left": "3px",
+                                },
+                            )
+                        ],
+                        width=12,
+                    ),
+                ),
+                dbc.Row(
+                    dbc.Col(
+                        [
+                            html.Iframe(
+                                id="chart_global_trend_death",
                                 style={
                                     "border-width": "0",
                                     "width": "100%",
@@ -65,7 +98,7 @@ class mid_panel(panel):
             width=12,
         )
 
-    def refresh(self, chart_type="confirmed", ntype="Total"):
+    def refresh_global_map(self, chart_type="confirmed"):
         """Aggregate the country level data
 
         Args:
@@ -90,8 +123,21 @@ class mid_panel(panel):
         # data.columns =['Country_Region', 'Cases']
         world_map = self.__create_world_map_chart(data, chart_type.title())
 
-        trend_chart = self.__create_world_timeseries_chart(chart_type)
-        return world_map, trend_chart
+        return world_map
+
+    def refresh_trend_charts(
+        self,
+        start_date,
+        end_date,
+    ):
+
+        new_trend_chart = self.__create_world_timeseries_chart(
+            "confirmed", start_date=start_date, end_date=end_date
+        )
+        death_trend_chart = self.__create_world_timeseries_chart(
+            "death", start_date=start_date, end_date=end_date
+        )
+        return new_trend_chart, death_trend_chart
 
     def __create_button_groups(self):
         """Create button
@@ -159,7 +205,12 @@ class mid_panel(panel):
 
         return chart.to_html()
 
-    def __create_world_timeseries_chart(self, case_type, ntype="New"):
+    def __create_world_timeseries_chart(
+        self,
+        case_type,
+        start_date,
+        end_date,
+    ):
         """create trend chart for global numbers
 
         Args:
@@ -179,26 +230,39 @@ class mid_panel(panel):
         elif case_type == "recovered":
             chart_title = "Global Recovered Cases"
             case_type = 3
-        if ntype == "Total":
-            chart_title = chart_title + " Over Time"
-        else:
-            chart_title = "New " + chart_title + " Per Day"
-        data = self.data_reader.get_timeserie_data_by_country("all", case_type)
+
+        chart_title = "New " + chart_title + " Per Day"
+        # data = self.data_reader.get_timeserie_data_by_country("all", case_type)
+        # data.date = data.date.astype(str)
+
+        data = self.data_reader.get_timeserie_data_by_country(
+            country="all", c_type=case_type, start_date=start_date, end_date=end_date
+        )
+        data = data.query("type=='New'")
 
         chart = (
             alt.Chart(
                 data,
                 title=alt.TitleParams(text=chart_title),
-                height=200,
             )
             .mark_line()
-            .transform_filter(alt.FieldEqualPredicate(field="type", equal=ntype))
             .encode(
-                x=alt.X("date:T", title="", axis=alt.Axis(format=("%b %Y"))),
+                x=alt.X("date:T", title=""),
                 y=alt.Y("count:Q", title=""),
+                tooltip=alt.Tooltip(["count:Q"], format=",.0f"),
             )
-            .configure_axis(grid=False)
+            # .properties(width="container", height="container")
+        )
+        rolling_mean = (
+            alt.Chart(data)
+            .mark_line(color="red")
+            .transform_window(rolling_mean="mean(count)", frame=[-7, 7])
+            .encode(x=alt.X("date:T", title=""), y=alt.Y("rolling_mean:Q", title=""))
+        )
+        chart = chart + rolling_mean
+        chart = (
+            chart.configure_axis(grid=False)
             .configure_title(anchor="start")
-            .properties(width=790)
+            .properties(width=790, height=200)
         )
         return chart.to_html()
