@@ -176,13 +176,12 @@ def update_global_trend(start_date, end_date):
             start_date_object = datetime.datetime.strptime(start_date, '%Y-%m-%d')
         if end_date is not None:
             end_date_object = datetime.datetime.strptime(end_date, '%Y-%m-%d')
-    except Exception as e:
-        return "<p>"+e+"</p>", "<p>Exception</p>"
-    finally:
-         return map_panel.refresh_trend_charts(
+        return map_panel.refresh_trend_charts(
             start_date=start_date_object,
             end_date=end_date_object,
         )
+    except:
+        return "<p>Exception 1</p>", "<p>Exception 2</p>"
 
 
 # @app.callback(
