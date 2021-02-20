@@ -176,10 +176,14 @@ def update_global_trend(start_date, end_date):
     if end_date is not None:
         end_date_object = datetime.date.fromisoformat(end_date)
 
-    return map_panel.refresh_trend_charts(
-        start_date=start_date_object,
-        end_date=end_date_object,
-    )
+    temp1 = html.Div(start_date)
+    temp2 = html.Div(end_date)
+
+    # return map_panel.refresh_trend_charts(
+    #     start_date=start_date_object,
+    #     end_date=end_date_object,
+    # )
+    return temp1, temp2
 
 
 # @app.callback(
