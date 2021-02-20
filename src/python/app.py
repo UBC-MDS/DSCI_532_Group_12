@@ -192,5 +192,5 @@ def update_global_trend(start_date, end_date):
 
 # endregion
 
-if __name__ == "__main__":
-    app.run_server(debug=True)  # activate hot reloading
+#if __name__ == "__main__":
+app.run_server(debug=True)  # activate hot reloading
