@@ -173,9 +173,9 @@ def update_global_trend(start_date, end_date):
     end_date_object = datetime.date.today()
     try:
         if start_date is not None:
-            start_date_object = datetime.datetime.strptime(start_date, '%Y-%m-%d')
+            start_date_object = datetime.date.fromisoformat(start_date)
         if end_date is not None:
-            end_date_object = datetime.datetime.strptime(end_date, '%Y-%m-%d')
+            end_date_object = datetime.date.fromisoformat(end_date)
         return map_panel.refresh_trend_charts(
             start_date=start_date_object,
             end_date=end_date_object,
