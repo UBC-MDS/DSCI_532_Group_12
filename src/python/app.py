@@ -5,6 +5,7 @@ from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
 import locale
 import altair as alt
+import datetime
 
 locale.setlocale(locale.LC_ALL, "")
 
@@ -135,14 +136,12 @@ def update_left_panel(active, confirmed, death, recovered):
 
 @app.callback(
     Output("world_map", "srcDoc"),
-    Output("chart_global_trend", "srcDoc"),
-    # Input("btn_active", "n_clicks"),
     Input("wm_confirmed", "n_clicks"),
     Input("wm_death", "n_clicks"),
     Input("wm_recovered", "n_clicks"),
 )
-def update_mid_panel(confirmed, death, recovered):
-    """update all controls on mid panel upon callback"""
+def update_global_map(confirmed, death, recovered):
+    """update global map"""
     ctx = dash.callback_context
     if not ctx.triggered:
         ctype = "confirmed"
@@ -152,11 +151,43 @@ def update_mid_panel(confirmed, death, recovered):
             ctype = "confirmed"
         elif button_id == "wm_death":
             ctype = "death"
-        # elif button_id == "btn_active":
-        #     ctype = "active"
+        elif button_id == "wm_recovered":
+            ctype = "recovered"
         else:
             ctype = "recovered"
-    return map_panel.refresh(chart_type=ctype)
+
+    return map_panel.refresh_global_map(
+        chart_type=ctype,
+    )
+
+
+@app.callback(
+    Output("chart_global_trend_new", "srcDoc"),
+    Output("chart_global_trend_death", "srcDoc"),
+    Input("global_time_frame", "start_date"),
+    Input("global_time_frame", "end_date"),
+)
+def update_global_trend(start_date, end_date):
+    """update trend charts"""
+    start_date_object = datetime.date(2019, 1, 1)
+    end_date_object = datetime.date.today()
+    if start_date is not None:
+        start_date_object = datetime.date.fromisoformat(start_date)
+    if end_date is not None:
+        end_date_object = datetime.date.fromisoformat(end_date)
+
+    return map_panel.refresh_trend_charts(
+        start_date=start_date_object,
+        end_date=end_date_object,
+    )
+
+
+# @app.callback(
+#     Output("dd_country", "value"),
+#     Input("world_map", "value"),
+# )
+# def display_country(selected_country):
+#     return "Canada"
 
 
 # endregion
