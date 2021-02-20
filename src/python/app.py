@@ -171,15 +171,17 @@ def update_global_trend(start_date, end_date):
     """update trend charts"""
     start_date_object = datetime.date(2019, 1, 1)
     end_date_object = datetime.date.today()
-    if start_date is not None:
-        start_date_object = datetime.datetime.strptime(start_date, '%Y-%m-%d')
-    if end_date is not None:
-        end_date_object = datetime.datetime.strptime(end_date, '%Y-%m-%d')
-
-    return map_panel.refresh_trend_charts(
-         start_date=start_date_object,
-         end_date=end_date_object,
-    )
+    try:
+        if start_date is not None:
+            start_date_object = datetime.datetime.strptime(start_date, '%Y-%m-%d')
+        if end_date is not None:
+            end_date_object = datetime.datetime.strptime(end_date, '%Y-%m-%d')
+        return map_panel.refresh_trend_charts(
+            start_date=start_date_object,
+            end_date=end_date_object,
+        )
+    except e:
+        return "<p>"+e+"</p>"
 
 
 # @app.callback(
