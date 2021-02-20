@@ -181,7 +181,7 @@ def update_global_trend(start_date, end_date):
             end_date=end_date_object,
         )
     except Exception as e:
-        return "<p>"+e+"</p>"
+        return "<p>Exception</p>"
 
 
 # @app.callback(
