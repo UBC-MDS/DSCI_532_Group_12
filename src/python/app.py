@@ -180,7 +180,7 @@ def update_global_trend(start_date, end_date):
             start_date=start_date_object,
             end_date=end_date_object,
         )
-    except e:
+    except Exception as e:
         return "<p>"+e+"</p>"
 
 
