@@ -169,21 +169,17 @@ def update_global_map(confirmed, death, recovered):
 )
 def update_global_trend(start_date, end_date):
     """update trend charts"""
-    #start_date_object = datetime.date(2019, 1, 1)
-    #end_date_object = datetime.date.today()
+    start_date_object = datetime.date(2019, 1, 1)
+    end_date_object = datetime.date.today()
     #if start_date is not None:
     #    start_date_object = datetime.date.fromisoformat(start_date)
     #if end_date is not None:
     #    end_date_object = datetime.date.fromisoformat(end_date)
 
-    temp1 = "<p>"+start_date+"</p>"
-    temp2 = "<p>"+end_date+"</p>"
-
-    # return map_panel.refresh_trend_charts(
-    #     start_date=start_date_object,
-    #     end_date=end_date_object,
-    # )
-    return temp1, temp2
+    return map_panel.refresh_trend_charts(
+         start_date=start_date_object,
+         end_date=end_date_object,
+    )
 
 
 # @app.callback(
