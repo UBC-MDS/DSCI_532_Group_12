@@ -171,6 +171,7 @@ def update_global_trend(start_date, end_date):
     """update trend charts"""
     start_date_object = datetime.date(2019, 1, 1)
     end_date_object = datetime.date.today()
+
     try:
         if start_date is not None:
             start_date_object = datetime.date.fromisoformat(start_date)
@@ -182,7 +183,6 @@ def update_global_trend(start_date, end_date):
         )
     except Exception as e:
         return "<p>"+str(e)+"</p>", "<p>Exception 2</p>"
-
 
 # @app.callback(
 #     Output("dd_country", "value"),
