@@ -109,7 +109,7 @@ app.layout = dbc.Container(
         dbc.Row(
             html.P(
                 f"""
-    This dashboard was made by Mai Le, Sang Yoon Lee and Rui Wang.
+    This dashboard was created by Mai Le, Sang Yoon Lee and Rui Wang.
     GitHub Repository: https://github.com/UBC-MDS/DSCI_532_Group_12.
     """,
                 style={"text-align": "center"},

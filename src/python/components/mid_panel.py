@@ -70,7 +70,7 @@ class mid_panel(panel):
                                 style={
                                     "border-width": "0",
                                     "width": "100%",
-                                    "height": "300px",
+                                    "height": "320px",
                                     "padding-left": "3px",
                                 },
                             )
@@ -86,7 +86,7 @@ class mid_panel(panel):
                                 style={
                                     "border-width": "0",
                                     "width": "100%",
-                                    "height": "300px",
+                                    "height": "320px",
                                     "padding-left": "3px",
                                 },
                             )
@@ -260,9 +260,14 @@ class mid_panel(panel):
             .encode(x=alt.X("date:T", title=""), y=alt.Y("rolling_mean:Q", title=""))
         )
         chart = chart + rolling_mean
+
         chart = (
             chart.configure_axis(grid=False)
             .configure_title(anchor="start")
             .properties(width=790, height=200)
         )
-        return chart.to_html()
+
+        return (
+            chart.to_html()
+            + "<p style='color:gray; font-style:italic; padding-left:20px'>* The trend line shows rolling 2-week means</p>"
+        )
