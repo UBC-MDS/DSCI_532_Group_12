@@ -1,7 +1,7 @@
 import dash
 import dash_html_components as html
 import dash_core_components as dcc
-from dash.dependencies import Input, Output
+from dash.dependencies import Input, Output, State
 import dash_bootstrap_components as dbc
 import locale
 import altair as alt
@@ -39,24 +39,61 @@ map_panel = mid_panel(data_reader)
 alt.themes.enable("ggplot2")
 app.title = "Covid-19 Data Portal"
 dashboard_heading = "Covid-19 Data Portal"
-last_updated = "Last Updated: " + data_reader.last_updated.strftime("%m/%d/%Y")
+last_updated = data_reader.last_updated.strftime("%m/%d/%Y")
+
+collapse = html.Div(
+    [
+        dbc.Button(
+            "Learn more",
+            id="collapse-button",
+            className="mb-3",
+            outline=False,
+            style={
+                "margin-top": "10px",
+                "width": "150px",
+                "background-color": "white",
+                "color": "black",
+            },
+        ),
+    ]
+)
+
 app.layout = dbc.Container(
     [
         dbc.Row(
             [
-                html.Div(
-                    dashboard_heading,
-                    style={
-                        "font-size": "30pt",
-                        "text-align": "center",
-                        "left": "0%",
-                        "right": "0%",
-                    },
-                ),
-                html.Div(className="space"),
-                html.Div(last_updated, style={"font-size": "14pt", "right": "0px"}),
-            ],
-            className="heading",
+                dbc.Col(
+                    [
+                        dbc.Row(
+                            [
+                                dbc.Col(
+                                    [
+                                        html.H1(dashboard_heading, className="heading"),
+                                        dbc.Collapse(
+                                            [
+                                                html.P(
+                                                    f"""
+                                                This dashboard visualizes Covid-19 statistics at global and local scale.
+                                                Source: JHU CSSE COVID-19 Data.
+                                                Data Last Updated: {last_updated}. 
+                        """,
+                                                )
+                                            ],
+                                            style={
+                                                "width": "100%",
+                                            },
+                                            id="collapse",
+                                        ),
+                                    ],
+                                    md=10,
+                                ),
+                                dbc.Col([collapse]),
+                            ]
+                        )
+                    ],
+                    className="heading",
+                )
+            ]
         ),
         dbc.Row(
             [
@@ -68,6 +105,16 @@ app.layout = dbc.Container(
                     className="right_panel",
                 ),
             ],
+        ),
+        dbc.Row(
+            html.P(
+                f"""
+    This dashboard was created by Mai Le, Sang Yoon Lee and Rui Wang.
+    GitHub Repository: https://github.com/UBC-MDS/DSCI_532_Group_12.
+    """,
+                style={"text-align": "center"},
+            ),
+            style={"place-content": "center"},
         ),
     ],
     fluid=True,
@@ -82,6 +129,17 @@ app.layout = dbc.Container(
 # endregion
 
 # region handle call backs
+@app.callback(
+    Output("collapse", "is_open"),
+    [Input("collapse-button", "n_clicks")],
+    [State("collapse", "is_open")],
+)
+def toggle_collapse(n, is_open):
+    if n:
+        return not is_open
+    return is_open
+
+
 @app.callback(
     Output("lb_confirmed", "children"),
     Output("lb_recovered", "children"),
@@ -182,17 +240,8 @@ def update_global_trend(start_date, end_date):
             end_date=end_date_object,
         )
     except Exception as e:
-        return "<p>"+str(e)+"</p>", "<p>Exception 2</p>"
+        return "<p>" + str(e) + "</p>", "<p>Exception 2</p>"
 
-# @app.callback(
-#     Output("dd_country", "value"),
-#     Input("world_map", "value"),
-# )
-# def display_country(selected_country):
-#     return "Canada"
-
-
-# endregion
 
 if __name__ == "__main__":
     app.run_server(debug=True)  # activate hot reloading

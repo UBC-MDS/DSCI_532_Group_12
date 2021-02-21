@@ -115,6 +115,7 @@ class left_panel(panel):
                 dbc.Row(dbc.Col(html.H5("Total Active Cases: " + active_cases))),
             ]
         )
+
         return content
 
     def __create_ranking_bar_chart(self, data, type):

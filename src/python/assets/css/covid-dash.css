@@ -17,6 +17,7 @@
     color:white;
     place-items: center;
     place-content: center;
+    text-align: center;
 }
 
 .footer{
@@ -53,4 +54,15 @@ body {
 
 body::-webkit-scrollbar {
     display: none;
+}
+.statistics_table{
+    display: table;
+    border-collapse: separate;
+    box-sizing: border-box;
+    text-indent: initial;
+    border-spacing: 2px;
+    border-color: grey;
+}
+.statistics_cell{
+    border-right: 1px solid #ebebeb;
 }
