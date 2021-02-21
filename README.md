@@ -12,11 +12,11 @@ The COVID-19 Data Portal aims to provide the user with an interactive interface 
 
 On the left side of the dashboard, the user can view the world cases trend for recovered cases, death cases, and confirmed cases. There's also an ordered ranking on the left side which shows how many cases up till now for each countries in different categories. The user can select the categories such as confirmed cases, death cases, recovered cases from the drop-down menu.
 
-On the right side of the dashboard, the country level statistics can be seen in both number format and trend-line format. By default, the user will see Canada's (based on locale) statistics when opening the dashboard. Users can also opt for other region's statistics by selecting from the drop-down menu to view both the case summary and the trend line.
+On the right side of the dashboard, the country level statistics can be seen in both number format and trend-line format. By default, the user will see Canada's statistics when opening the dashboard. Users can also opt for other region's statistics by selecting from the drop-down menu to view both the case summary and the trend line.
 
 ## Dashboard
 
-![](dash-demo.png)
+![](docs/images/dash-demo.gif)
 
 ### Build the dashboard locally
 
